@@ -19,9 +19,9 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-#bootstrap
-gem 'bootstrap', '~> 5.1.0'
-gem 'jquery-rails' # Add jQuery if you want Bootstrap's JavaScript components
+# bootstrap
+gem "bootstrap", "~> 5.1.0"
+gem "jquery-rails" # Add jQuery if you want Bootstrap's JavaScript components
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
