@@ -23,4 +23,6 @@ Rails.application.routes.draw do
 
   # canteen path (in home page to canteen module) aka canteen_path
   get "canteen_path", to: "canteen#index", as: :canteen
+
+  get "examples", to: "examples#index"
 end
