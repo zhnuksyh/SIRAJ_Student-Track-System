@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   # Redirect dashboard/index to dashboard for cleaner URL
   get "dashboard/index", to: redirect("/dashboard")
 
+  # Merit Dimerit routes
+  get "merit", to: "merit#index", as: :merit
+
   # canteen path (in home page to canteen module) aka canteen_path
   get "canteen_path", to: "canteen#index", as: :canteen
 
