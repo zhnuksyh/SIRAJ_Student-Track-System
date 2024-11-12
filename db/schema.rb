@@ -11,6 +11,34 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_11_10_172540) do
+  create_schema "auth"
+  create_schema "extensions"
+  create_schema "graphql"
+  create_schema "graphql_public"
+  create_schema "pgbouncer"
+  create_schema "pgsodium"
+  create_schema "pgsodium_masks"
+  create_schema "realtime"
+  create_schema "storage"
+  create_schema "vault"
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_graphql"
+  enable_extension "pg_stat_statements"
+  enable_extension "pgcrypto"
+  enable_extension "pgjwt"
+  enable_extension "pgsodium"
+  enable_extension "plpgsql"
+  enable_extension "supabase_vault"
+  enable_extension "uuid-ossp"
+
+  create_table "Student", primary_key: "StudentID", id: :bigint, default: nil, comment: "Student information is stored here", force: :cascade do |t|
+    t.text "StudentName"
+    t.text "StudentGrade"
+    t.text "StudentClass"
+    t.timestamptz "created_at", default: -> { "now()" }, null: false
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -24,5 +52,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_172540) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "username", limit: 255, null: false
+    t.string "email", limit: 255, null: false
+    t.string "password_hash", limit: 255, null: false
+    t.timestamptz "created_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.timestamptz "updated_at", default: -> { "CURRENT_TIMESTAMP" }
+
+    t.unique_constraint ["email"], name: "users_email_key"
+    t.unique_constraint ["username"], name: "users_username_key"
   end
 end
