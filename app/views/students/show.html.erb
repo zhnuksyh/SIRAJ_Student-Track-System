@@ -2,7 +2,14 @@
 <div class="student-info-container">
   <div class="header">
     <h1>Student Information</h1>
-    <input type="text" placeholder="Search Student" class="search-bar">
+    <h1>Search Students</h1>
+    <%= form_with url: search_students_path, method: :get, local: true do %>
+      <input type="text" name="query" placeholder="Search Student" class="search-bar" value="<%= params[:query] %>">
+      <button type="submit">Search</button>
+    <% end %>
+    <% if flash[:alert] %>
+      <p><%= flash[:alert] %></p>
+    <% end %>
   </div>
   <div class="student-card">
     <div class="profile-picture">
@@ -21,11 +28,3 @@
   </div>
 </div>
 <!-- app/views/students/search.html.erb -->
-<h1>Search Students</h1>
-<%= form_with url: search_students_path, method: :get, local: true do %>
-  <input type="text" name="query" placeholder="Search Student" class="search-bar" value="<%= params[:query] %>">
-  <button type="submit">Search</button>
-<% end %>
-<% if flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
