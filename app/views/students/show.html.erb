@@ -1,0 +1,31 @@
+<!-- app/views/students/show.html.erb -->
+<div class="student-info-container">
+  <div class="header">
+    <h1>Student Information</h1>
+    <input type="text" placeholder="Search Student" class="search-bar">
+  </div>
+  <div class="student-card">
+    <div class="profile-picture">
+      <!-- Placeholder for student profile picture -->
+      <img src="/assets/profile-placeholder.png" alt="Student Profile Picture">
+    </div>
+    <div class="student-details">
+      <p><strong>Name:</strong> <%= @student.StudentName %></p>
+      <p><strong>Grade:</strong> <%= @student.StudentGrade %></p>
+      <p><strong>Class:</strong> <%= @student.StudentClass %></p>
+      <p><strong>Student ID:</strong> <%= @student.StudentID %></p>
+    </div>
+    <div class="download-slip">
+      <button class="download-button">Download Slip</button>
+    </div>
+  </div>
+</div>
+<!-- app/views/students/search.html.erb -->
+<h1>Search Students</h1>
+<%= form_with url: search_students_path, method: :get, local: true do %>
+  <input type="text" name="query" placeholder="Search Student" class="search-bar" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+<% end %>
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>

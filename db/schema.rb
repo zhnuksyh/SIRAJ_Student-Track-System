@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_10_172540) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_13_155151) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -52,6 +52,21 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_172540) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "student_tests", force: :cascade do |t|
+    t.string "StudentName"
+    t.string "StudentClass"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.datetime "created_at", default: -> { "(now() AT TIME ZONE 'utc'::text)" }, null: false
+    t.datetime "updated_at", null: false
+    t.text "StudentName"
+    t.text "StudentGrade"
+    t.text "StudentClass"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

@@ -28,4 +28,11 @@ Rails.application.routes.draw do
   get "canteen_path", to: "canteen#index", as: :canteen
 
   get "examples", to: "examples#index"
+
+  # Student routes
+  resources :students, only: [ :show ] do
+    collection do
+      get "search"
+    end
+  end
 end
