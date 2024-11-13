@@ -6,6 +6,7 @@ default: &default
   port: <%= ENV['DATABASE_PORT'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  prepared_statements: false
 
 development:
   <<: *default
