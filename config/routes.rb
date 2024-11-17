@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   get "password_resets/new"
   get "password_resets/create"
   get "password_resets/edit"
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   get "canteen_path", to: "canteen#index", as: :canteen
 
   get "examples", to: "examples#index"
+
+  get "home", to: "home#index"
 
   # Student routes
   resources :students, only: [ :show ] do

@@ -17,15 +17,79 @@
         display: flex;
       }
       .sidebar {
-        background-color: #FF9015;
-        height: 100%;
-        color: white;
-        padding: 1rem;
+          background: linear-gradient(to bottom, #FFA500, #FF8C00);
+          width: 60px;
+          height: 90vh;
+          position: fixed;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 20px;
+          transition: width 0.3s, box-shadow 0.3s;
+          overflow: hidden;
+          left: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1001;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-      .main-content {
-        flex: 1;
-        padding: 2rem;
-        overflow-y: auto;
+
+      .sidebar:hover {
+        width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar .item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+        text-decoration: none;
+        color: white;
+      }
+
+      .sidebar .icon {
+        font-size: 2rem;
+        margin-right: 10px;
+        width: 40px;
+        text-align: center;
+      }
+
+      .sidebar .text {
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+      }
+
+      .sidebar:hover .text {
+        opacity: 1;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar:hover + .overlay,
+      .overlay:hover {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .container-fluid {
+        position: relative;
+        z-index: 1;
       }
       .outstanding-amount {
         font-size: 2.5rem;
@@ -58,7 +122,6 @@
         border: 2px solid #FF8A08; /* Use the same orange hash as used */
         color: #FF8A08; /* Orange text */
       }
-
       .custom-btn:hover {
         background-color: #FF8A08; /* Orange background on hover */
         color: white; /* White text on hover */
@@ -66,34 +129,63 @@
     </style>
   </head>
   <body>
+    <div class="overlay"></div>
     <div class="container-fluid">
       <!-- Sidebar -->
-      <div class="col-md-2 sidebar d-none d-md-flex flex-column align-items-center">
-        <!-- Sidebar Content -->
-        <div>Sidebar Content</div>
+      <div class="sidebar">
+        <a href="#" class="item">
+          <div class="icon">☰</div>
+          <div class="text">Menu</div>
+        </a>
+        <a href="home" class="item">
+          <div class="icon">🏠</div>
+          <div class="text">Home</div>
+        </a>
+        <a href="student_information_path" class="item">
+          <div class="icon">🧑‍🎓</div>
+          <div class="text">Student Profile</div>
+        </a>
+        <a href="<%= merit_path %>" class="item">
+          <div class="icon">😁</div>
+          <div class="text">Merit-Dimerit</div>
+        </a>
+        <a href="student_exam_report_path" class="item">
+          <div class="icon">📚</div>
+          <div class="text">Exam Report</div>
+        </a>
+        <a href="student_profile_path" class="item">
+          <div class="icon">🧑‍🎓</div>
+          <div class="text">Student Profile</div>
+        </a>
+        <a href="canteen_path" class="item">
+          <div class="icon">🥘</div>
+          <div class="text">Canteen Fees</div>
+        </a>
       </div>
       <!-- Main Content -->
-      <div class="col-md-6 main-content">
-        <button class="btn orange-btn mb-3">Pay Canteen Fees</button>
-        <h5>Outstanding Amount</h5>
-        <div class="outstanding-amount">RM 500.00</div>
-        <h5 class="payment-instructions mt-3">Payment Instruction</h5>
-        <ol>
-          <li>Scan the QR code shown on the left using any banking transaction application (e.g., MAE, CIMB Clicks).</li>
-          <li>Ensure the sender account is <strong>Mr. Nuriman Alysha</strong>.</li>
-          <li>Proceed with the payment.</li>
-          <li>Upload a screenshot of the receipt into the portal below.</li>
-        </ol>
-        <!-- Button to trigger the upload modal -->
-        <button class="btn custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Receipt</button>
-      </div>
-      <!-- QR Code Section -->
-      <div class="col-md-4 qr-section">
-        <div class="card p-3">
-          <h5><img src="https://via.placeholder.com/30x30" alt="Maybank Logo"> Maybank</h5>
-          <p>Nureen bin Ukasyah</p>
-          <img src="https://via.placeholder.com/150x150" alt="QR Code" class="img-fluid">
-          <p class="mt-2">Al-Alusi SIRAJ QR</p>
+      <div class="row flex-grow-1">
+        <div class="col-8" style="padding-left: 275px; padding-top: 50px">
+          <button class="btn orange-btn mb-3">Pay Canteen Fees</button>
+          <h5>Outstanding Amount</h5>
+          <div class="outstanding-amount">RM 500.00</div>
+          <h5 class="payment-instructions mt-3">Payment Instruction</h5>
+          <ol>
+            <li>Scan the QR code shown on the left using any banking transaction application (e.g., MAE, CIMB Clicks).</li>
+            <li>Ensure the sender account is <strong>Mr. Nuriman Alysha</strong>.</li>
+            <li>Proceed with the payment.</li>
+            <li>Upload a screenshot of the receipt into the portal below.</li>
+          </ol>
+          <!-- Button to trigger the upload modal -->
+          <button class="btn custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Receipt</button>
+        </div>
+        <!-- QR Code Section -->
+        <div class="col-4 qr-section" style="padding-right:50px; padding-top: 50px">
+          <div class="card p-3">
+            <h5><img src="https://via.placeholder.com/30x30" alt="Maybank Logo"> Maybank</h5>
+            <p>Nureen bin Ukasyah</p>
+            <img src="https://via.placeholder.com/150x150" alt="QR Code" class="img-fluid">
+            <p class="mt-2">Al-Alusi SIRAJ QR</p>
+          </div>
         </div>
       </div>
     </div>
