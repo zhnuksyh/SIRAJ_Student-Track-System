@@ -1,3 +1,4 @@
+# app/controllers/students_controller.rb
 class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
@@ -28,5 +29,10 @@ class StudentsController < ApplicationController
       flash[:alert] = "Please enter a search query"
       render :search
     end
+  end
+
+  def dashboard
+    @student = Student.find(params[:id])
+    # Add any additional logic needed for the student's dashboard
   end
 end

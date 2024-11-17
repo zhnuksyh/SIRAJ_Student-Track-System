@@ -5,14 +5,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # Handle login logic here (authentication)
-    redirect_to dashboard_index_path # Redirect to dashboard after successful login
+    student = Student.find_by(email: params[:email])
+    if student && student.authenticate(params[:password])
+      session[:student_id] = student.id
+      redirect_to student_dashboard_path(student), notice: "Logged in successfully"
+    else
+      flash[:alert] = "Invalid email or password"
+      render :new
+    end
   end
 
   def destroy
-    # Handle logout logic here
-    redirect_to root_path
+    session[:student_id] = nil
+    redirect_to root_path, notice: "Logged out successfully"
   end
-
-  # To do : make sure if logged in, no need to re login again
 end
