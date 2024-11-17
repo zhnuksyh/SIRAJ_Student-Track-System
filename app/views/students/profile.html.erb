@@ -1,0 +1,155 @@
+<!-- app/views/students/profile.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <style>
+      body {
+        display: flex;
+      }
+      .sidebar {
+        background: linear-gradient(to bottom, #FFA500, #FF8C00);
+        width: 60px;
+        height: 90vh;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+        transition: width 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar:hover {
+        width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar .item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+        text-decoration: none;
+        color: white;
+      }
+
+      .sidebar .icon {
+        font-size: 2rem;
+        margin-right: 10px;
+        width: 40px;
+        text-align: center;
+      }
+
+      .sidebar .text {
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+      }
+
+      .sidebar:hover .text {
+        opacity: 1;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar:hover + .overlay,
+      .overlay:hover {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .container-fluid {
+        position: relative;
+        z-index: 1;
+      }
+          .profile-container {
+            margin-left: 270px;
+            width: 60%; /* Percentage-based width */
+            max-width: 1200px; /* Increased max width */
+            min-width: 600px; /* Prevent container from getting too narrow */
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+      .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .profile-header h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        color: #FF8C00;
+      }
+      .profile-details p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        color: #333;
+        margin: 10px 0;
+      }
+      .profile-details p strong {
+        color: #FF8C00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="<%= student_dashboard_path(current_student) %>" class="item">
+        <div class="icon">🏠</div>
+        <div class="text">Dashboard</div>
+      </a>
+      <a href="<%= profile_student_path(current_student) %>" class="item">
+        <div class="icon">🧑‍🎓</div>
+        <div class="text">Student Profile</div>
+      </a>
+      <a href="<%= merit_path %>" class="item">
+        <div class="icon">😁</div>
+        <div class="text">Merit-Demerit</div>
+      </a>
+      <a href="student_exam_report_path" class="item">
+        <div class="icon">📚</div>
+        <div class="text">Exam Report</div>
+      </a>
+      <a href="<%= student_canteen_path(current_student) %>" class="item">
+        <div class="icon">🥘</div>
+        <div class="text">Canteen Fees</div>
+      </a>
+    </div>
+    <div class="profile-container">
+      <div class="profile-header">
+        <h1>Profile for <%= @student.StudentName %></h1>
+      </div>
+      <div class="profile-details">
+        <p><strong>Name:</strong> <%= @student.StudentName %></p>
+        <p><strong>Grade:</strong> <%= @student.StudentGrade %></p>
+        <p><strong>Class:</strong> <%= @student.StudentClass %></p>
+        <p><strong>Student ID:</strong> <%= @student.StudentID %></p>
+        <p><strong>Email:</strong> <%= @student.email %></p>
+      </div>
+    </div>
+  </body>
+</html>

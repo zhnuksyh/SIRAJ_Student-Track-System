@@ -35,4 +35,14 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     # Add any additional logic needed for the student's dashboard
   end
+
+  def canteen
+    @student = Student.find(params[:id])
+    # Add any logic needed for the student's canteen page
+  end
+
+  def profile
+    @student = Student.find(params[:id])
+    # Add any logic needed for the student's profile page
+  end
 end

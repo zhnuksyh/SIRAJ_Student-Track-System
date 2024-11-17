@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # Other routes...
 
   get "students/:id/dashboard", to: "students#dashboard", as: "student_dashboard"
+  get "students/:id/canteen", to: "students#canteen", as: "student_canteen"
 
   # Login and logout routes
   get "login", to: "sessions#new", as: :login
@@ -22,15 +23,13 @@ Rails.application.routes.draw do
   # Merit Dimerit routes
   get "merit", to: "merit#index", as: :merit
 
-  # Canteen path (in home page to canteen module) aka canteen_path
-  get "canteen_path", to: "canteen#index", as: :canteen
-
-  get "examples", to: "examples#index"
-
-  get "home", to: "home#index"
-
   # Student routes
   resources :students, only: [ :show ] do
+    member do
+      get "dashboard"
+      get "canteen", to: "students#canteen", as: :canteen
+      get "profile", to: "students#profile", as: :profile
+    end
     collection do
       get "search"
     end

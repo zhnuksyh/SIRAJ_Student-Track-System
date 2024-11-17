@@ -1,16 +1,14 @@
 # app/models/student.rb
 class Student < ApplicationRecord
-  require "bcrypt"
-
   validates :email, presence: true, uniqueness: true
 
-  # Method to set the password
+  # Method to set the password (plain text)
   def password=(new_password)
-    self.password_digest = BCrypt::Password.create(new_password)
+    self.password_digest = new_password
   end
 
-  # Method to authenticate the password
+  # Method to authenticate the password (plain text)
   def authenticate(password)
-    BCrypt::Password.new(self.password_digest) == password
+    self.password_digest == password
   end
 end
