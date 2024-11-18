@@ -139,26 +139,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>PYM001</td>
-                  <td>2024-03-15</td>
-                  <td>RM 200.00</td>
-                  <td>
-                    <a href="#" class="btn btn-sm" style="background-color: #E57E0C; color: white;">
-                      View Receipt
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>PYM002</td>
-                  <td>2024-02-15</td>
-                  <td>RM 300.00</td>
-                  <td>
-                    <a href="#" class="btn btn-sm" style="background-color: #E57E0C; color: white;">
-                      View Receipt
-                    </a>
-                  </td>
-                </tr>
+                <% @payments.each do |payment| %>
+                  <tr>
+                    <td><%= payment.PaymentID %></td>
+                    <td><%= payment.Date %></td>
+                    <td>RM <%= payment.Amount %></td>
+                    <td>
+                      <a href="<%= payment.ReceiptURL %>" class="btn btn-sm" style="background-color: #E57E0C; color: white;">
+                        View Receipt
+                      </a>
+                    </td>
+                  </tr>
+                <% end %>
               </tbody>
             </table>
           </div>

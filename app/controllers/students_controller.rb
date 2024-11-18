@@ -39,6 +39,7 @@ class StudentsController < ApplicationController
   def canteen
     @student = Student.find(params[:id])
     # Add any logic needed for the student's canteen page
+    @payments = Payment.where(StudentID: @student.id) # for specific student
   end
 
   def profile
