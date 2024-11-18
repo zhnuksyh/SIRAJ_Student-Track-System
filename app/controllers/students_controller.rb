@@ -45,4 +45,14 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     # Add any logic needed for the student's profile page
   end
+
+  def merit
+    @student = Student.find(params[:id])
+    # Add any logic needed for the student's merit page
+  end
+
+  def exam
+    @student = Student.find(params[:id])
+    # Add any logic needed for the student's exam page
+  end
 end

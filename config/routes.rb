@@ -1,9 +1,11 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  # devise_for :users
   # Other routes...
 
   get "students/:id/dashboard", to: "students#dashboard", as: "student_dashboard"
   get "students/:id/canteen", to: "students#canteen", as: "student_canteen"
+
 
   # Login and logout routes
   get "login", to: "sessions#new", as: :login
@@ -24,11 +26,13 @@ Rails.application.routes.draw do
   get "merit", to: "merit#index", as: :merit
 
   # Student routes
-  resources :students, only: [ :show ] do
+  resources :students do
     member do
       get "dashboard"
       get "canteen", to: "students#canteen", as: :canteen
       get "profile", to: "students#profile", as: :profile
+      get "merit", to: "students#merit", as: :merit
+      get "exam", to: "students#exam", as: :exam
     end
     collection do
       get "search"

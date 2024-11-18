@@ -10,81 +10,6 @@
       body {
         display: flex;
       }
-      .sidebar {
-        background: linear-gradient(to bottom, #FFA500, #FF8C00);
-        width: 60px;
-        height: 90vh;
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding-top: 20px;
-        transition: width 0.3s, box-shadow 0.3s;
-        overflow: hidden;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1001;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .sidebar:hover {
-        width: 200px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
-
-      .sidebar .item {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        width: 100%;
-        text-decoration: none;
-        color: white;
-      }
-
-      .sidebar .icon {
-        font-size: 2rem;
-        margin-right: 10px;
-        width: 40px;
-        text-align: center;
-      }
-
-      .sidebar .text {
-        opacity: 0;
-        transition: opacity 0.3s;
-        white-space: nowrap;
-      }
-
-      .sidebar:hover .text {
-        opacity: 1;
-      }
-
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.7);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 1000;
-      }
-
-      .sidebar:hover + .overlay,
-      .overlay:hover {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .container-fluid {
-        position: relative;
-        z-index: 1;
-      }
           .profile-container {
             margin-left: 270px;
             width: 60%; /* Percentage-based width */
@@ -126,11 +51,11 @@
         <div class="icon">🧑‍🎓</div>
         <div class="text">Student Profile</div>
       </a>
-      <a href="<%= merit_path %>" class="item">
+      <a href="<%= merit_student_path(current_student) %>" class="item">
         <div class="icon">😁</div>
         <div class="text">Merit-Demerit</div>
       </a>
-      <a href="student_exam_report_path" class="item">
+      <a href="<%= exam_student_path(current_student) %>" class="item">
         <div class="icon">📚</div>
         <div class="text">Exam Report</div>
       </a>
@@ -138,6 +63,11 @@
         <div class="icon">🥘</div>
         <div class="text">Canteen Fees</div>
       </a>
+      <!-- Logout button at bottom -->
+      <%= button_to logout_path, method: :delete, class: "logout-btn", style: "margin-top: auto;" do %>
+        <div class="icon">🚪</div>
+        <div class="text">Logout</div>
+      <% end %>
     </div>
     <div class="profile-container">
       <div class="profile-header">
