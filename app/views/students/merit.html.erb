@@ -1,2 +1,106 @@
-<!-- app/views/students/merit.html.erb -->
-<h1>Merit-dimerit Page of <%= @student.StudentName %></h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+      }
+
+      .container {
+        margin-left: 270px;
+        padding: 20px;
+        width: calc(100% - 270px);
+      }
+
+      .points-container {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .point-box {
+        flex: 1;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .point-box h2 {
+        color: #E57E0C;
+        margin-bottom: 10px;
+      }
+
+      .feedback-form {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="<%= student_dashboard_path(current_student) %>" class="item">
+        <div class="icon">🏠</div>
+        <div class="text">Dashboard</div>
+      </a>
+      <a href="<%= profile_student_path(current_student) %>" class="item">
+        <div class="icon">🧑‍🎓</div>
+        <div class="text">Student Profile</div>
+      </a>
+      <a href="<%= merit_student_path(current_student) %>" class="item">
+        <div class="icon">😁</div>
+        <div class="text">Merit-Demerit</div>
+      </a>
+      <a href="<%= exam_student_path(current_student) %>" class="item">
+        <div class="icon">📚</div>
+        <div class="text">Exam Report</div>
+      </a>
+      <a href="<%= student_canteen_path(current_student) %>" class="item">
+        <div class="icon">🥘</div>
+        <div class="text">Canteen Fees</div>
+      </a>
+      <%= button_to logout_path, method: :delete, class: "logout-btn" do %>
+        <div class="icon">🚪</div>
+        <div class="text">Logout</div>
+      <% end %>
+    </div>
+    <div class="container">
+      <div class="points-container">
+        <div class="point-box bg-light">
+          <h2>Merit</h2>
+          <p class="points">100</p>
+          <div class="point-controls">
+            <input type="number" class="form-control mb-2" placeholder="Enter points" style="width: 150px; margin: 0 auto;">
+            <div class="btn-group">
+              <button class="btn" style="background-color: #E57E0C; color: white;">+</button>
+              <button class="btn" style="background-color: #E57E0C; color: white; margin-left: 5px;">-</button>
+            </div>
+          </div>
+        </div>
+        <div class="point-box bg-light">
+          <h2>Demerit</h2>
+          <p class="points">0</p>
+          <div class="point-controls">
+            <input type="number" class="form-control mb-2" placeholder="Enter points" style="width: 150px; margin: 0 auto;">
+            <div class="btn-group">
+              <button class="btn" style="background-color: #E57E0C; color: white;">+</button>
+              <button class="btn" style="background-color: #E57E0C; color: white; margin-left: 5px;">-</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feedback-form" style="margin-left: 20px">
+        <h2>Provide Feedback</h2>
+        <form>
+          <div class="mb-3">
+            <label for="feedback" class="form-label">Your Feedback</label>
+            <textarea id="feedback" rows="5" class="form-control" placeholder="Write your feedback here..."></textarea>
+          </div>
+          <button type="button" class="btn" style="background-color: #E57E0C; color: white;">Submit Feedback</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
