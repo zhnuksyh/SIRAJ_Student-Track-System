@@ -49,11 +49,29 @@ class StudentsController < ApplicationController
 
   def merit
     @student = Student.find(params[:id])
+    @merits = Merit.where(StudentID: @student.id) # Fetch merits for specific student
     # Add any logic needed for the student's merit page
   end
+
+  def add_merit
+    @student = Student.find(params[:id])
+    @merit = @student.merits.new(merit_params)
+    if @merit.save
+      redirect_to merit_student_path(@student), notice: "Merit added successfully."
+    else
+      redirect_to merit_student_path(@student), alert: "Failed to add merit."
+    end
+  end
+
 
   def exam
     @student = Student.find(params[:id])
     # Add any logic needed for the student's exam page
+  end
+
+  private
+
+  def merit_params
+    params.require(:merit).permit(:meritPoint, :description, :feedback)
   end
 end

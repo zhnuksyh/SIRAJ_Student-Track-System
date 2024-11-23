@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get "profile", to: "students#profile", as: :profile
       get "merit", to: "students#merit", as: :merit
       get "exam", to: "students#exam", as: :exam
+      post "add_merit", to: "students#add_merit", as: :add_merit
     end
     collection do
       get "search"
