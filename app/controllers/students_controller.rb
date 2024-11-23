@@ -66,7 +66,7 @@ class StudentsController < ApplicationController
 
   def exam
     @student = Student.find(params[:id])
-    @subjects = Subject.where(SubjectID: @student.id) # Assuming you have a Subject model
+    @subjects = Subject.where(StudentID: @student.id).includes(:grades) # Fetch subjects and their grades for specific student
   end
 
   private

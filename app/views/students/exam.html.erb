@@ -6,9 +6,9 @@
     <title>Student Exam Report</title>
     <style>
       body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: Arial, sans-serif;
         display: flex;
-        background-color: #f8f9fa;
+        background-color: #F6F6F6;
         margin: 0;
       }
 
@@ -18,45 +18,52 @@
         width: calc(100% - 270px);
       }
 
-      .header {
-        background: linear-gradient(90deg, #ff8c00, #e57e0c);
-        color: white;
-        border-radius: 15px;
-        padding: 20px;
+      .header-card {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+        background-color: #E57E0C;
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
       }
 
-      .header-left {
+      .header-card .info {
         display: flex;
-        align-items: center;
         gap: 20px;
       }
 
-      .header-left .student-info {
+      .header-card .info div {
         line-height: 1.5;
       }
 
-      .header-right .download-btn {
+      .download-btn {
         background-color: white;
-        color: #e57e0c;
+        color: #E57E0C;
         padding: 10px 20px;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
-      .header-right .download-btn:hover {
-        background-color: #e57e0c;
-        color: white;
+      .exam-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
       }
 
-      .grid {
+      .history-item {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      .grid-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
@@ -64,35 +71,32 @@
 
       .grid-item {
         background: white;
-        border-radius: 15px;
         padding: 20px;
-        text-align: center;
+        border-radius: 15px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
+        text-align: center;
+        transition: transform 0.3s ease;
       }
 
       .grid-item:hover {
-        transform: scale(1.05);
+        transform: translateY(-10px);
       }
 
-      .grid-item h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        color: #e57e0c;
-      }
-
-      .grid-item .percentage {
+      .percentage {
         font-size: 32px;
-        color: #28a745;
         margin-top: 10px;
       }
 
-      .grid-item .percentage.low {
-        color: #dc3545;
+      .percentage.green {
+        color: #28a745;
       }
 
-      .grid-item .percentage.medium {
+      .percentage.yellow {
         color: #ffc107;
+      }
+
+      .percentage.red {
+        color: #dc3545;
       }
     </style>
   </head>
@@ -125,40 +129,39 @@
     </div>
     <div class="container">
       <!-- Header Section -->
-    <div class="row flex-grow-1">
-      <div class="header">
-        <div class="header-left">
-          <div>
-            <img
-              src="student-profile.png"
-              alt="Student Photo"
-              style="width: 80px; height: 80px; border-radius: 50%;"
-            />
+      <div class="row flex-grow-1">
+        <div class="header-card">
+          <div class="info">
+            <div>
+              <strong>NAME :</strong> <%= @student.StudentName %><br>
+              <strong>CLASS :</strong> <%= @student.StudentClass %><br>
+              <strong>Student ID:</strong> <%= @student.StudentID %>
+            </div>
           </div>
-          <div class="student-info">
-            <p><strong>NAME :</strong> <%= @student.StudentName %></p>
-            <p><strong>CLASS :</strong> <%= @student.StudentClass %></p>
-            <p><strong>Student ID:</strong> <%= @student.StudentID %></p>
+          <div class="header-right">
+            <button class="download-btn">Download Slip</button>
           </div>
         </div>
-        <div class="header-right">
-          <button class="download-btn">Download Slip</button>
+        <!-- Exam Report Grid Section -->
+        <div class="row">
+          <div class="col-12">
+            <div class="grid-container"> <% @subjects.each do |subject| %>
+                <div class="grid-item">
+                  <h3><%= subject.Name %></h3>
+                  <% if subject.grades.any? %>
+                    <% subject.grades.each do |grade| %>
+                      <div class="percentage"><%= grade.Grade %></div>
+                    <% end %>
+                  <% else %>
+                    <div class="percentage">No grades available</div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Grid Section -->
-      <div class="exam-card">
-            <h2>Exam Report</h2>
-            <% @subjects.each do |subject| %>
-              <div class="history-item">
-                <p><strong>SubectID:</strong> <%= subject.SubjectID %></p>
-                <p><strong>Subject:</strong> <%= subject.Name %></p>
-                <p><strong>Grade:</strong> Placeholder</p>
-              </div>
-            <% end %>
-          </div>
-      </div>
     </div>
-    </div>
-  </body>
+  </div>
+</body>
 </html>
