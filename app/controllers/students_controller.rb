@@ -55,7 +55,7 @@ class StudentsController < ApplicationController
 
   def add_merit
     @student = Student.find(params[:id])
-    @merit = @student.merits.new(merit_params)
+    @merit = Merit.new(merit_params.merge(StudentID: @student.id))
     if @merit.save
       redirect_to merit_student_path(@student), notice: "Merit added successfully."
     else
@@ -72,6 +72,6 @@ class StudentsController < ApplicationController
   private
 
   def merit_params
-    params.require(:merit).permit(:meritPoint, :description, :feedback)
+    params.require(:merit).permit(:meritPoint, :feedback)
   end
 end

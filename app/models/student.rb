@@ -1,5 +1,6 @@
 # app/models/student.rb
 class Student < ApplicationRecord
+  has_many :merits, foreign_key: "StudentID"
   validates :email, presence: true, uniqueness: true
 
   # Method to set the password (plain text)
