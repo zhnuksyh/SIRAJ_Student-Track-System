@@ -66,7 +66,7 @@ class StudentsController < ApplicationController
 
   def exam
     @student = Student.find(params[:id])
-    # Add any logic needed for the student's exam page
+    @subjects = Subject.where(SubjectID: @student.id) # Assuming you have a Subject model
   end
 
   private

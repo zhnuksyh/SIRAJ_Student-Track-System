@@ -147,39 +147,16 @@
       </div>
 
       <!-- Grid Section -->
-      <div class="grid">
-        <div class="grid-item">
-          <h3>TAUHID</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>B. MELAYU</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>ENGLISH</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>MATH</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>SIRAH</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>SCIENCE</h3>
-          <div class="percentage">100%</div>
-        </div>
-        <div class="grid-item">
-          <h3>HISTORY</h3>
-          <div class="percentage medium">50%</div>
-        </div>
-        <div class="grid-item">
-          <h3>GEO</h3>
-          <div class="percentage low">20%</div>
-        </div>
+      <div class="exam-card">
+            <h2>Exam Report</h2>
+            <% @subjects.each do |subject| %>
+              <div class="history-item">
+                <p><strong>SubectID:</strong> <%= subject.SubjectID %></p>
+                <p><strong>Subject:</strong> <%= subject.Name %></p>
+                <p><strong>Grade:</strong> Placeholder</p>
+              </div>
+            <% end %>
+          </div>
       </div>
     </div>
     </div>
