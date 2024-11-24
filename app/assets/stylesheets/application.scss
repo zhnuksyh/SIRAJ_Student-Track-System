@@ -252,7 +252,15 @@ h1 {
     border-color: #dee2e6;
   }
 
-  .form-card, .history-card {
+  .form-card, .history-card{
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .points-card{
     background: white;
     padding: 20px;
     border-radius: 15px;

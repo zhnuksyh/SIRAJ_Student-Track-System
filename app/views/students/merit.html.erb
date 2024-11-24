@@ -145,7 +145,7 @@
         <!-- Merit-Dimerit -->
         <div class="row flex-grow-1">
           <div class="form-card">
-            <h2>Add Merit</h2>
+            <h2>Add/Remove Merit Points</h2>
             <!-- app/views/students/merit.html.erb -->
             <form action="<%= add_merit_student_path(@student) %>" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -155,6 +155,13 @@
               <textarea name="merit[feedback]" rows="3" placeholder="Enter feedback"></textarea>
               <button type="submit">Submit</button>
             </form>
+          </div>
+        </div>
+        <!-- Total Merit Points Card -->
+        <div class="row flex-grow-1">
+          <div class="points-card">
+            <h2>Total Merit Points</h2>
+            <p><strong>Total Points:</strong> <%= @merits.sum(:meritPoint) %></p>
           </div>
         </div>
         <!-- Merit History -->
