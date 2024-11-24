@@ -24,6 +24,8 @@ gem "jbuilder"
 gem "bootstrap", "~> 5.1.0"
 gem "jquery-rails" # Add jQuery if you want Bootstrap's JavaScript components
 gem "supabase"
+gem "prawn"
+gem "prawn-table"  # for table support
 # Gemfile
 gem "dotenv-rails", groups: [ :development, :test ]
 

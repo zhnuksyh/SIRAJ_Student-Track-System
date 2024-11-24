@@ -139,7 +139,7 @@
             </div>
           </div>
           <div class="header-right">
-            <button class="download-btn">Download Slip</button>
+            <%= link_to 'Download Slip', download_exam_report_student_path(@student), class: 'download-btn', format: :pdf %>
           </div>
         </div>
         <!-- Exam Report Grid Section -->
