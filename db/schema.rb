@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_13_155151) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_17_122148) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -31,13 +31,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_13_155151) do
   enable_extension "plpgsql"
   enable_extension "supabase_vault"
   enable_extension "uuid-ossp"
-
-  create_table "Student", primary_key: "StudentID", id: :bigint, default: nil, comment: "Student information is stored here", force: :cascade do |t|
-    t.text "StudentName"
-    t.text "StudentGrade"
-    t.text "StudentClass"
-    t.timestamptz "created_at", default: -> { "now()" }, null: false
-  end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -61,12 +54,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_13_155151) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", default: -> { "(now() AT TIME ZONE 'utc'::text)" }, null: false
-    t.datetime "updated_at", null: false
+  create_table "students", primary_key: "StudentID", id: :bigint, default: nil, comment: "Student information is stored here", force: :cascade do |t|
     t.text "StudentName"
     t.text "StudentGrade"
     t.text "StudentClass"
+    t.timestamptz "created_at", default: -> { "now()" }, null: false
+    t.string "email"
+    t.string "password_digest"
+    t.index ["email"], name: "index_students_on_email", unique: true
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

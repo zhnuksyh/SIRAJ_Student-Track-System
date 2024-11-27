@@ -14,16 +14,19 @@
       <!-- Login Form -->
       <%= form_with(url: login_path, local: true) do |f| %>
         <div class="form-group mb-3">
+          <%= f.label :email %>
           <%= f.email_field :email, class: "form-control", placeholder: "Enter your email", autofocus: true %>
         </div>
         <div class="form-group mb-3">
+          <%= f.label :password %>
           <%= f.password_field :password, class: "form-control", placeholder: "Enter your password" %>
-        </div>
-        <!-- Forgot Password Link -->
-        <div class="text-center mb-3">
         </div>
         <!-- Submit Button -->
         <%= f.submit "Log In", class: "btn btn-primary w-100", style: "background-color: #FF8A08; border-color: #FF8A08;" %>
+      <% end %>
+      <!-- Flash Messages -->
+      <% if flash[:alert] %>
+        <div class="alert alert-danger mt-3"><%= flash[:alert] %></div>
       <% end %>
     </div>
   </div>

@@ -1,32 +1,31 @@
-# app/controllers/sessions_controller.rb
-class SessionsController < ApplicationController
-  require 'supabase'
-
-  SUPABASE_URL = ENV['SUPABASE_URL']
-  SUPABASE_API_KEY = ENV['SUPABASE_API_KEY']
-
-  def new
-    # Render the login form
-  end
-
-  def create
-    email = params[:email]
-    password = params[:password]
-
-    client = Supabase::Client.new(SUPABASE_URL, SUPABASE_API_KEY)
-    response = client.auth.sign_in(email: email, password: password)
-
-    if response['error']
-      flash[:alert] = response['error']['message']
-      render :new
-    else
-      session[:user_id] = response['user']['id']
-      redirect_to dashboard_path, notice: 'Logged in successfully'
-    end
-  end
-
-  def destroy
-    session[:user_id] = nil
-    redirect_to root_path, notice: 'Logged out successfully'
-  end
-end
+<!-- app/views/sessions/create.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <%= form_with(url: login_path, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Log In", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger"><%= flash[:alert] %></div>
+      <% end %>
+    </div>
+  </body>
+</html>

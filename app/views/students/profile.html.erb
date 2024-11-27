@@ -1,0 +1,85 @@
+<!-- app/views/students/profile.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <style>
+      body {
+        display: flex;
+      }
+          .profile-container {
+            margin-left: 270px;
+            width: 60%; /* Percentage-based width */
+            max-width: 1200px; /* Increased max width */
+            min-width: 600px; /* Prevent container from getting too narrow */
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+      .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .profile-header h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        color: #FF8C00;
+      }
+      .profile-details p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        color: #333;
+        margin: 10px 0;
+      }
+      .profile-details p strong {
+        color: #FF8C00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="<%= student_dashboard_path(current_student) %>" class="item">
+        <div class="icon">🏠</div>
+        <div class="text">Dashboard</div>
+      </a>
+      <a href="<%= profile_student_path(current_student) %>" class="item">
+        <div class="icon">🧑‍🎓</div>
+        <div class="text">Student Profile</div>
+      </a>
+      <a href="<%= merit_student_path(current_student) %>" class="item">
+        <div class="icon">😁</div>
+        <div class="text">Merit-Demerit</div>
+      </a>
+      <a href="<%= exam_student_path(current_student) %>" class="item">
+        <div class="icon">📚</div>
+        <div class="text">Exam Report</div>
+      </a>
+      <a href="<%= student_canteen_path(current_student) %>" class="item">
+        <div class="icon">🥘</div>
+        <div class="text">Canteen Fees</div>
+      </a>
+      <!-- Logout button at bottom -->
+      <%= button_to logout_path, method: :delete, class: "logout-btn", style: "margin-top: auto;" do %>
+        <div class="icon">🚪</div>
+        <div class="text">Logout</div>
+      <% end %>
+    </div>
+    <div class="profile-container">
+      <div class="profile-header">
+        <h1>Profile for <%= @student.StudentName %></h1>
+      </div>
+      <div class="profile-details">
+        <p><strong>Name:</strong> <%= @student.StudentName %></p>
+        <p><strong>Grade:</strong> <%= @student.StudentGrade %></p>
+        <p><strong>Class:</strong> <%= @student.StudentClass %></p>
+        <p><strong>Student ID:</strong> <%= @student.StudentID %></p>
+        <p><strong>Email:</strong> <%= @student.email %></p>
+      </div>
+    </div>
+  </body>
+</html>

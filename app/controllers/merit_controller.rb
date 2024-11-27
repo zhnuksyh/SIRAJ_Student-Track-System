@@ -1,6 +1,5 @@
-# app/controllers/merit_controller.rb
-class MeritController < ApplicationController
+class MeritsController < ApplicationController
   def index
-    # Any logic you need for the merit page
+    @merits = Merit.all
   end
 end

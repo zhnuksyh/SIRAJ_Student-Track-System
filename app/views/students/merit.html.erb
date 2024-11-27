@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Exam Report</title>
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        background-color: #f8f9fa;
+        margin: 0;
+      }
+
+      .container {
+        margin-left: 270px;
+        padding: 20px;
+        width: calc(100% - 270px);
+      }
+
+      .header {
+        background: linear-gradient(90deg, #ff8c00, #e57e0c);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .header-left .student-info {
+        line-height: 1.5;
+      }
+
+      .header-right .download-btn {
+        background-color: white;
+        color: #e57e0c;
+        padding: 10px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-right .download-btn:hover {
+        background-color: #e57e0c;
+        color: white;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .grid-item {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .grid-item:hover {
+        transform: scale(1.05);
+      }
+
+      .grid-item h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #e57e0c;
+      }
+
+      .grid-item .percentage {
+        font-size: 32px;
+        color: #28a745;
+        margin-top: 10px;
+      }
+
+      .grid-item .percentage.low {
+        color: #dc3545;
+      }
+
+      .grid-item .percentage.medium {
+        color: #ffc107;
+      }
+
+      .history-item {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="<%= student_dashboard_path(current_student) %>" class="item">
+        <div class="icon">🏠</div>
+        <div class="text">Dashboard</div>
+      </a>
+      <a href="<%= profile_student_path(current_student) %>" class="item">
+        <div class="icon">🧑‍🎓</div>
+        <div class="text">Student Profile</div>
+      </a>
+      <a href="<%= merit_student_path(current_student) %>" class="item">
+        <div class="icon">😁</div>
+        <div class="text">Merit-Demerit</div>
+      </a>
+      <a href="<%= exam_student_path(current_student) %>" class="item">
+        <div class="icon">📚</div>
+        <div class="text">Exam Report</div>
+      </a>
+      <a href="<%= student_canteen_path(current_student) %>" class="item">
+        <div class="icon">🥘</div>
+        <div class="text">Canteen Fees</div>
+      </a>
+      <%= button_to logout_path, method: :delete, class: "logout-btn" do %>
+        <div class="icon">🚪</div>
+        <div class="text">Logout</div>
+      <% end %>
+    </div>
+    <div class="container">
+      <!-- Header Section -->
+      <div class="row flex-grow-1">
+        <div class="header">
+          <div class="header-left">
+            <div class="student-info">
+              <p><strong>NAME :</strong> <%= @student.StudentName %></p>
+              <p><strong>CLASS :</strong> <%= @student.StudentClass %></p>
+              <p><strong>Student ID:</strong> <%= @student.StudentID %></p>
+            </div>
+          </div>
+        </div>
+        <!-- Merit-Dimerit -->
+        <div class="row flex-grow-1">
+          <div class="form-card">
+            <h2>Add/Remove Merit Points</h2>
+            <!-- app/views/students/merit.html.erb -->
+            <form action="<%= add_merit_student_path(@student) %>" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <label>Merit Points</label>
+              <input type="number" name="merit[meritPoint]" placeholder="Enter merit points">
+              <label>Feedback</label>
+              <textarea name="merit[feedback]" rows="3" placeholder="Enter feedback"></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- Total Merit Points Card -->
+        <div class="row flex-grow-1">
+          <div class="points-card">
+            <h2>Total Merit Points</h2>
+            <p><strong>Total Points:</strong> <%= @merits.sum(:meritPoint) %></p>
+          </div>
+        </div>
+        <!-- Merit History -->
+        <div class="row flex-grow-1">
+          <div class="history-card">
+            <h2>Merit History</h2>
+            <% @merits.each do |merit| %>
+              <div class="history-item">
+                <p><strong>Merit ID:</strong> <%= merit.meritID %></p>
+                <p><strong>Points:</strong> <%= merit.meritPoint %></p>
+                <p><strong>Feedback:</strong> <%= merit.feedback %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
