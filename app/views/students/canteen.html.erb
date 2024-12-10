@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Width Payment Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .container-fluid {
+        height: 100vh;
+        display: flex;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar:hover + .overlay,
+      .overlay:hover {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .container-fluid {
+        position: relative;
+        z-index: 1;
+      }
+      .outstanding-amount {
+        font-size: 2.5rem;
+        color: #ff6600;
+        font-weight: bold;
+      }
+      .payment-instructions {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .qr-section {
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .orange-btn {
+        background-color: #ff6600;
+        color: white;
+        font-weight: bold;
+        border: none;
+      }
+      .modal-body {
+        text-align: center;
+      }
+      .upload-icon {
+        font-size: 5rem;
+        color: #ff6600;
+      }
+      .custom-btn {
+        background-color: white;
+        border: 2px solid #FF8A08; /* Use the same orange hash as used */
+        color: #FF8A08; /* Orange text */
+      }
+      .custom-btn:hover {
+        background-color: #FF8A08; /* Orange background on hover */
+        color: white; /* White text on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="container-fluid">
+      <!-- Sidebar -->
+      <!-- app/views/dashboard/index.html.erb or wherever your sidebar is defined -->
+      <div class="sidebar">
+        <a href="<%= student_dashboard_path(current_student) %>" class="item">
+          <div class="icon">🏠</div>
+          <div class="text">Dashboard</div>
+        </a>
+        <a href="<%= profile_student_path(current_student) %>" class="item">
+          <div class="icon">🧑‍🎓</div>
+          <div class="text">Student Profile</div>
+        </a>
+        <a href="<%= merit_student_path(@student) %>" class="item">
+          <div class="icon">😁</div>
+          <div class="text">Merit-Dimerit</div>
+        </a>
+        <a href="<%= exam_student_path(current_student) %>" class="item">
+          <div class="icon">📚</div>
+          <div class="text">Exam Report</div>
+        </a>
+        <a href="<%= student_canteen_path(current_student) %>" class="item">
+          <div class="icon">🥘</div>
+          <div class="text">Canteen Fees</div>
+        </a>
+        <!-- Logout button at bottom -->
+        <%= button_to logout_path, method: :delete, class: "logout-btn", style: "margin-top: auto;" do %>
+          <div class="icon">🚪</div>
+          <div class="text">Logout</div>
+        <% end %>
+      </div>
+      <!-- Main Content -->
+      <div class="row flex-grow-1">
+        <div class="col-8" style="padding-left: 275px; padding-top: 50px">
+          <button class="btn orange-btn mb-3">Pay Canteen Fees</button>
+          <h5>Outstanding Amount</h5>
+          <div class="outstanding-amount">RM 500.00</div>
+          <h5 class="payment-instructions mt-3">Payment Instruction</h5>
+          <ol>
+            <li>Scan the QR code shown on the left using any banking transaction application (e.g., MAE, CIMB Clicks).</li>
+            <li>Ensure the sender account is <strong>Mr. Nuriman Alysha</strong>.</li>
+            <li>Proceed with the payment.</li>
+            <li>Upload a screenshot of the receipt into the portal below.</li>
+          </ol>
+          <!-- Button to trigger the upload modal -->
+          <button class="btn custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Receipt</button>
+          <!-- Add Payment History Section -->
+          <h5 class="mt-4">Payment History - Placeholder, will be on separate page</h5>
+          <div class="table-responsive">
+            <table class="table">
+              <thead style="background-color: #E57E0C; color: white;">
+                <tr>
+                  <th scope="col">Payment ID</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Receipt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @payments.each do |payment| %>
+                  <tr>
+                    <td><%= payment.PaymentID %></td>
+                    <td><%= payment.Date %></td>
+                    <td>RM <%= payment.Amount %></td>
+                    <td>
+                      <a href="<%= payment.ReceiptURL %>" class="btn btn-sm" style="background-color: #E57E0C; color: white;">
+                        View Receipt
+                      </a>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- QR Code Section -->
+        <div class="col-4 qr-section" style="padding-right:50px; padding-top: 50px">
+          <div class="card p-3">
+            <h5><img src="https://via.placeholder.com/30x30" alt="Maybank Logo"> Maybank</h5>
+            <p>Nureen bin Ukasyah</p>
+            <img src="https://via.placeholder.com/150x150" alt="QR Code" class="img-fluid">
+            <p class="mt-2">Al-Alusi SIRAJ QR</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Upload Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="upload-icon">
+              <img src="https://via.placeholder.com/100" alt="Upload Icon">
+            </div>
+            <p>Upload file from your internal storage or just drag it into here</p>
+            <input type="file" class="form-control mt-3" id="uploadFile" name="uploadFile">
+            <button class="btn orange-btn mt-3">Upload file</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

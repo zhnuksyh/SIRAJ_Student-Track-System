@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  GradeID: 1
+  SubjectID: 1
+  Grade: MyText
+  created_at: 2024-11-24
+
+two:
+  GradeID: 1
+  SubjectID: 1
+  Grade: MyText
+  created_at: 2024-11-24

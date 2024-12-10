@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+    <title>Home</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <style>
+      body {
+        position: relative;
+      }
+
+      .sidebar {
+          background: linear-gradient(to bottom, #FFA500, #FF8C00);
+          width: 60px;
+          height: 90vh;
+          position: fixed;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 20px;
+          transition: width 0.3s, box-shadow 0.3s;
+          overflow: hidden;
+          left: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1001;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar:hover {
+        width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar .item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+        text-decoration: none;
+        color: white;
+      }
+
+      .sidebar .icon {
+        font-size: 2rem;
+        margin-right: 10px;
+        width: 40px;
+        text-align: center;
+      }
+
+      .sidebar .text {
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+      }
+
+      .sidebar:hover .text {
+        opacity: 1;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar:hover + .overlay,
+      .overlay:hover {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .container-fluid {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1 bordered">
+          <div class="sidebar">
+            <a href="#" class="item">
+              <div class="icon">☰</div>
+              <div class="text">Menu</div>
+            </a>
+            <a href="dashboard" class="item">
+              <div class="icon">🏠</div>
+              <div class="text">Dashboard</div>
+            </a>
+            <a href="student_information_path" class="item">
+              <div class="icon">🧑‍🎓</div>
+              <div class="text">Student Profile</div>
+            </a>
+            <a href="<%= merit_path %>" class="item">
+              <div class="icon">😁</div>
+              <div class="text">Merit-Dimerit</div>
+            </a>
+            <a href="student_exam_report_path" class="item">
+              <div class="icon">📚</div>
+              <div class="text">Exam Report</div>
+            </a>
+            <a href="student_profile_path" class="item">
+              <div class="icon">🧑‍🎓</div>
+              <div class="text">Student Profile</div>
+            </a>
+            <a href="canteen_path" class="item">
+              <div class="icon">🥘</div>
+              <div class="text">Canteen Fees</div>
+            </a>
+          </div>
+        </div>
+        <div class="col-6 bordered">
+          <div class="content" style="margin-left: 0; padding-left: 0;">
+            <!-- Welcome Card -->
+            <div class="card2 mb-3" style="border-radius: 15px;">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="logo-placeholder rounded-circle bg-secondary" style="width: 50px; height: 50px; margin-right: 10px;"></div>
+                  <div class="ml-3">
+                    <div style="font-family: 'Montserrat', sans-serif; font-size: 20px;">Welcome, Ustazah Nureen</div>
+                    <div style="font-family: 'Montserrat', sans-serif; font-size: 16px;">SL Sek Integrasi Al Alusi</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Main Buttons Grouped in the Middle -->
+            <div class="grouped-content">
+              <!-- Student Information Button -->
+              <div class="card2 mb-3" style="background-color: #E57E0C; height: 20vh; border-radius: 15px; width: 100%;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <a href="student_information_path" style="text-decoration: none; color: white;">
+                    <div class="text-center">
+                      <div class="icon" style="font-size: 24px;">🎓</div>
+                      <div>Student Information</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <!-- Student Merits Point Button -->
+              <div class="card2 mb-3" style="background-color: #E57E0C; height: 20vh; border-radius: 15px; width: 100%;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <a href="<%= merit_path %>" style="text-decoration: none; color: white;">
+                    <div class="text-center">
+                      <div class="icon" style="font-size: 24px;">📋</div>
+                      <div>Student Merits Point</div>
+                      <div style="font-size: 12px;">Check All Student Merits or Demerits Points List</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <!-- Review Student Exam Report Button -->
+              <div class="card2 mb-3" style="background-color: #E57E0C; height: 20vh; border-radius: 15px; width: 100%;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <a href="student_exam_report_path" style="text-decoration: none; color: white;">
+                    <div class="text-center">
+                      <div class="icon" style="font-size: 24px;">📚</div>
+                      <div>Review Student Exam Report</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-5 bordered" style="padding-top: 165px">
+          <div class="row mt-1 gx-0" style="margin-top: 10px;">
+            <div class="col-12 mb-3">
+              <div class="card3 h-100" style="background-color: #FFFFFF; border-radius: 15px;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <a href="student_profile_path" style="text-decoration: none; color: inherit;">
+                    <div class="text-center">
+                      <div class="icon" style="font-size: 24px;">🧑‍🎓</div>
+                      <div>Student Profile</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mb-3">
+              <div class="card3 h-100" style="background-color: #FFFFFF; border-radius: 15px;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <a href="canteen_path" style="text-decoration: none; color: inherit;">
+                    <div class="text-center">
+                      <div class="icon" style="font-size: 24px;">💰</div>
+                      <div>Review Student<br>
+                        Canteen Fees</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+  </body>
+</html>

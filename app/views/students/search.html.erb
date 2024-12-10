@@ -1,0 +1,9 @@
+<!-- app/views/students/search.html.erb -->
+<h1>Search Students</h1>
+<%= form_with url: search_students_path, method: :get, local: true do %>
+  <input type="text" name="query" placeholder="Search Student" class="search-bar" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+<% end %>
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
