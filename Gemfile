@@ -22,7 +22,7 @@ gem "jbuilder"
 
   # bootstrap
   
-gem "bootstrap", "~> 5.1.0"
+gem "bootstrap", "~> 5.3.3"
 gem "jquery-rails" # Add jQuery if you want Bootstrap's JavaScript components
 gem "supabase"
 gem "prawn"
